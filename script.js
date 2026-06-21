@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -42,4 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('fade-in-element');
         observer.observe(el);
     });
+    // Mobile navigation toggle
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navigation = document.querySelector('.nav-section');
+
+    if (menuToggle && navigation) {
+        const closeMenu = () => {
+            menuToggle.classList.remove('is-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'メニューを開く');
+            document.body.classList.remove('menu-open');
+        };
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = menuToggle.classList.toggle('is-open');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            menuToggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+            document.body.classList.toggle('menu-open', isOpen);
+        });
+
+        navigation.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+                closeMenu();
+            }
+        });
+    }
 });

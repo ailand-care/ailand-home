@@ -7,6 +7,122 @@
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* ヘッダーの文字崩れを直すための共通修正コード */
+        .header-container {
+            max-width: 1400px; /* 全体の横幅を少し広げて余裕を持たせる */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .nav-section ul {
+            gap: 15px; /* メインメニューの間隔 */
+            align-items: center; /* メニューの上下中央を揃える */
+        }
+        .nav-section a {
+            font-size: 0.95rem; /* 文字サイズをわずかに小さくして1行に収める */
+            white-space: nowrap; /* 基本のメニューは途中で改行させない */
+            text-align: center;
+            display: inline-block;
+        }
+        
+        /* 「思い出のアルバム」だけを2行にするための特別ルール */
+        .nav-section a.two-lines {
+            white-space: normal; /* 2行への改行を許可する */
+            line-height: 1.3;    /* 行と行の間隔を少し狭くしてスマートにする */
+            min-width: 80px;     /* 横幅を確保して綺麗に折れ曲がるようにする */
+        }
+
+        /* 経営理念セクション専用のスタイル調整 */
+        .philosophy-container {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 5rem;
+        }
+        .philosophy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        .philosophy-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            background: #fffcf7;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border-left: 6px solid var(--accent-gold);
+        }
+        .philosophy-number {
+            background: var(--accent-gold);
+            color: white;
+            font-weight: 900;
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .philosophy-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.7;
+            color: #333;
+            margin: 0;
+            padding-top: 2px;
+        }
+        .philosophy-footer-message {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent-red);
+            letter-spacing: 0.15em;
+            margin-top: 2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .philosophy-footer-message::after {
+            content: '';
+            position: absolute;
+            left: 5%;
+            bottom: -8px;
+            width: 90%;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, var(--accent-red), var(--accent-red) 4px, transparent 4px, transparent 8px);
+        }
+
+        @media (max-width: 1200px) {
+            /* 画面が少し狭くなった時はお問い合わせボタンをコンパクトにする */
+            .header-ctas {
+                gap: 5px;
+            }
+            .cta-block {
+                padding: 8px 12px;
+            }
+            .cta-block span {
+                font-size: 0.7rem;
+            }
+            .cta-block strong {
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .philosophy-text {
+                font-size: 1rem;
+            }
+            .philosophy-footer-message {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -15,14 +131,20 @@
                 <i class="fa-solid fa-rainbow" style="color: var(--accent-red); margin-right: 10px;"></i>
                 合同会社 愛らんど
             </a>
-            <nav class="nav-section">
+            <button class="mobile-menu-toggle" type="button" aria-label="メニューを開く" aria-controls="site-navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-section" id="site-navigation">
                 <ul>
                     <li><a href="index.html">トップ</a></li>
                     <li><a href="about.html" style="color: var(--accent-red);">愛らんどについて</a></li>
                     <li><a href="homenurse.html">訪問看護</a></li>
                     <li><a href="care.html">訪問介護</a></li>
                     <li><a href="senior.html">老人ホーム</a></li>
-                    <li><a href="recruit.html">採用情報</a></li>
+                    <li><a href="memory.html" class="two-lines">思い出の<br>アルバム</a></li>
+                    <li><a href="recruit.html">採用情景</a></li>
                 </ul>
             </nav>
             <div class="header-ctas">
@@ -43,87 +165,105 @@
             <div class="section-title">
                 <h2>愛らんどについて</h2>
             </div>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+                沖縄県本部町を拠点に、地域に根ざした心の通う温かいケアをお届けする私たちの理念と、事業所の概要をご紹介します。
+            </p>
         </div>
     </section>
 
     <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 20px 100px;">
-        <!-- 理念 -->
-        <div class="blob-card">
-            <h3 style="color: var(--accent-red); margin-bottom: 2rem; text-align: center;">理念</h3>
-            <ul style="list-style: none; text-align: center; font-size: 1.25rem;">
-                <li style="margin-bottom: 1.5rem;">私たちは利用者様が健やかにまた喜びに満ちた日々が送れるよう努めます。</li>
-                <li style="margin-bottom: 1.5rem;">私たちは利用者様に安心と笑顔に満ちた時間を提供できるようお世話させていただきます。</li>
-                <li style="margin-bottom: 1.5rem;">私たちは利用者様に出会えたことに感謝し寄り添い支えていきます。</li>
-            </ul>
-            <p style="text-align: center; font-weight: bold; font-size: 1.8rem; margin-top: 2rem; color: var(--accent-gold);">すべてに 感謝</p>
+        
+        <div class="section-title">
+            <h2>経営理念</h2>
+        </div>
+        <div class="philosophy-container">
+            <div class="philosophy-list">
+                <div class="philosophy-item">
+                    <div class="philosophy-number">1</div>
+                    <p class="philosophy-text">私たちは利用者様が健やかにまた喜びに満ちた日々が送れるよう努めます。</p>
+                </div>
+                <div class="philosophy-item">
+                    <div class="philosophy-number">2</div>
+                    <p class="philosophy-text">私たちは利用者様に安心と笑顔に満ちた時間を提供できるようお世話させていただきます。</p>
+                </div>
+                <div class="philosophy-item">
+                    <div class="philosophy-number">3</div>
+                    <p class="philosophy-text">私たちは利用者様に出会えたことに感謝し寄り添い支えていきます。</p>
+                </div>
+            </div>
+            <div class="philosophy-footer-message">すべてに 感謝</div>
         </div>
 
-        <!-- 会社概要 -->
-        <div class="blob-card">
-            <h3 style="color: var(--primary-blue); margin-bottom: 2rem; text-align: center;">会社概要</h3>
-            <table style="width: 100%; border-collapse: collapse; font-size: 1.2rem;">
-                <tr style="border-bottom: 2px solid #f2efe6;">
-                    <th style="width: 30%; text-align: left; padding: 1.5rem; color: var(--primary-blue);">会社名</th>
-                    <td style="padding: 1.5rem;">合同会社 愛らんど</td>
+        <div class="section-title" style="margin-top: 5rem;">
+            <h2>会社概要</h2>
+        </div>
+        <div class="blob-card" style="max-width: 800px; margin: 0 auto;">
+            <table style="width: 100%; border-collapse: collapse; line-height: 1.8;">
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem; font-weight: bold; width: 30%; color: var(--primary-blue);">法人名</td>
+                    <td style="padding: 1rem;">合同会社愛らんど</td>
                 </tr>
-                <tr style="border-bottom: 2px solid #f2efe6;">
-                    <th style="text-align: left; padding: 1.5rem; color: var(--primary-blue);">所在地</th>
-                    <td style="padding: 1.5rem;">〒905-0203 沖縄県国頭郡本部町謝花68</td>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem; font-weight: bold; color: var(--primary-blue);">代表者</td>
+                    <td style="padding: 1rem;">代表社員 具志堅 祐子</td>
                 </tr>
-                <tr style="border-bottom: 2px solid #f2efe6;">
-                    <th style="text-align: left; padding: 1.5rem; color: var(--primary-blue);">代表連絡先</th>
-                    <td style="padding: 1.5rem;">TEL: 0980-43-7117 / FAX: 0980-43-7093</td>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem; font-weight: bold; color: var(--primary-blue);">所在地</td>
+                    <td style="padding: 1rem;">〒905-0203<br>沖縄県国頭郡本部町字謝花68番地</td>
                 </tr>
-                <tr style="border-bottom: 2px solid #f2efe6;">
-                    <th style="text-align: left; padding: 1.5rem; color: var(--primary-blue);">事業内容</th>
-                    <td style="padding: 1.5rem;">訪問看護、訪問介護、有料老人ホームの運営</td>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem; font-weight: bold; color: var(--primary-blue);">電話番号</td>
+                    <td style="padding: 1rem;">0980-43-7117</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem; font-weight: bold; color: var(--primary-blue);">FAX番号</td>
+                    <td style="padding: 1rem;">0980-43-7093</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; font-weight: bold; color: var(--primary-blue);">事業内容</td>
+                    <td style="padding: 1rem;">
+                        ・訪問看護事業（訪問看護ステーション あいらんど）<br>
+                        ・訪問介護事業（ヘルパーステーション あいらんど）<br>
+                        ・有料老人ホーム運営（有料老人ホーム あいらんど）
+                    </td>
                 </tr>
             </table>
         </div>
 
-        <!-- プライバシーポリシー -->
         <div class="section-title" style="margin-top: 5rem;">
-            <p style="color: var(--accent-red); font-weight: 900; font-size: 1.5rem; font-family: 'Arial', sans-serif;">Privacy policy</p>
-            <h2>個人情報の保護</h2>
+            <h2>個人情報の使用に係る同意書</h2>
         </div>
-        <div class="blob-card">
-            <div style="border-left: 5px solid var(--accent-red); padding-left: 1.5rem; margin-bottom: 2.5rem;">
-                <h3 style="color: #444; font-size: 1.6rem; margin-bottom: 0.5rem;">個人情報の使用に係る同意書</h3>
-                <p style="color: #999; font-size: 1rem; font-family: 'Arial', sans-serif;">Privacy policy</p>
-            </div>
-            <p style="margin-bottom: 3rem; font-weight: bold;">利用者様及び利用者様の家族の個人情報を下記の利用目的の必要最低限の範囲内で使用、提供、または、収集する事に同意します。</p>
-            
-            <div style="display: flex; flex-direction: column; gap: 2.5rem;">
-                <!-- 1 -->
-                <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
-                    <div style="background: var(--accent-red); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0;">1</div>
-                    <div>
-                        <h4 style="color: var(--accent-red); font-size: 1.3rem; margin-bottom: 0.5rem;">利用期間</h4>
-                        <p>サービス提供に必要な時間及び契約期間に準じます。</p>
-                    </div>
+        <div class="blob-card" style="max-width: 900px; margin: 0 auto; background-color: #fafafa; border: 1px solid #eaeaea;">
+            <div style="font-size: 0.95rem; line-height: 1.8; color: #444; display: flex; flex-direction: column; gap: 1.5rem;">
+                <div>
+                    <p>合同会社愛らんど（以下「事業者」という）は、利用者及びその家族（以下「利用者等」という）の個人情報の取り扱いについて、以下の通り取り扱います。</p>
                 </div>
-                <!-- 2 -->
-                <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
-                    <div style="background: var(--accent-red); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0;">2</div>
-                    <div>
-                        <h4 style="color: var(--accent-red); font-size: 1.3rem; margin-bottom: 0.5rem;">利用目的</h4>
-                        <ul style="list-style: none; padding-left: 0;">
-                            <li>(1) 医療機関、福祉事業者、介護サービス事業者、自治体（保険者等）、その他社会福祉団体等との連絡調整のため</li>
-                            <li>(2) サービス担当者会議、その他サービス提供で必要な場合</li>
-                            <li>(3) 上記の号に関わらず、緊急を要する時の連絡等の場合</li>
-                        </ul>
-                    </div>
+
+                <div>
+                    <h4 style="color: var(--primary-blue); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-circle-info" style="margin-right: 5px;"></i> 1. 使用目的</h4>
+                    <p>事業者は、利用者等から取得した個人情報を、以下の目的の範囲内で使用します。</p>
+                    <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li>（1）利用者に提供する医療・介護サービス等の円滑な運営のため</li>
+                        <li>（2）医療・介護保険等に関する事務手続きのため</li>
+                        <li>（3）利用者の事故等の緊急時の連絡のため</li>
+                        <li>（4）その他、利用者に対する医療・介護サービスの提供に必要な業務のため</li>
+                    </ul>
                 </div>
-                <!-- 3 -->
-                <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
-                    <div style="background: var(--accent-red); color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0;">3</div>
-                    <div>
-                        <h4 style="color: var(--accent-red); font-size: 1.3rem; margin-bottom: 0.5rem;">使用条件</h4>
-                        <ul style="list-style: none; padding-left: 0;">
-                            <li>(1) 個人情報の提供は必要最低限とし、サービス提供に関わる目的以外決して利用しない。<br>また、利用者とのサービス利用に関わる契約の締結前からサービス終了後においても、第三者に漏らさない。</li>
-                            <li>(2) 個人情報を使用した内容や相手方などについて経過を記録し、請求があれば開示する。</li>
-                        </ul>
-                    </div>
+
+                <div>
+                    <h4 style="color: var(--primary-blue); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-share-nodes" style="margin-right: 5px;"></i> 2. 第三者への提供</h4>
+                    <p>事業者は、法令に基づく場合を除き、あらかじめ利用者の同意を得ることなく個人情報を第三者に提供しません。ただし、サービス提供に必要な範囲において、関係機関（主治医、ケアマネージャー、他の介護サービス事業者等）と情報を共有する場合があります。</p>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--primary-blue); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-lock" style="margin-right: 5px;"></i> 3. 安全管理措置</h4>
+                    <p>事業者は、保有する個人情報の漏えい、滅失又はき損の防止その他の個人情報の安全管理のために必要かつ適切な措置を講じます。</p>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--primary-blue); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-comments" style="margin-right: 5px;"></i> 4. お問い合わせ窓口</h4>
+                    <p>個人情報の取り扱いに関するご意見、ご質問、開示等のご請求は、以下の窓口までご連絡ください。</p>
+                    <p style="margin-top: 0.5rem; font-weight: bold;">合同会社愛らんど（連絡先：0980-43-7117）</p>
                 </div>
             </div>
         </div>
@@ -142,9 +282,11 @@
             <p>〒905-0203 沖縄県国頭郡本部町謝花68</p>
             <p>TEL: 0980-43-7117 / FAX: 0980-43-7093</p>
             <div style="margin-top: 4rem; font-size: 0.8rem; opacity: 0.7;">
-                &copy; 合同会社 愛らんど All Rights Reserved.
+                © 合同会社 愛らんど All Rights Reserved.
             </div>
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
+
